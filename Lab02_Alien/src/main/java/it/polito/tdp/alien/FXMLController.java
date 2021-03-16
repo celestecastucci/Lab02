@@ -5,6 +5,7 @@
 package it.polito.tdp.alien;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -17,7 +18,9 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	
-	TreeMap<String,Dizionario>dizionario= new TreeMap<>();
+	//TreeMap<WordEnhanced,LinkedList<String>>dizionario= new TreeMap<>();
+	
+	LinkedList<WordEnhanced>dizionario= new LinkedList<>();
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -58,52 +61,83 @@ public class FXMLController {
     			return;
     		} 
     		
-    			if(!dizionario.containsKey(parolaAliena)) {
-    				Dizionario d= new Dizionario(parolaAliena,traduzione);
-    			dizionario.put(d.getParolaAliena(),d);
-    				txtRisultato.setText(traduzione);
-    		
-    				txtParola.clear();
-    			} else {
-    				txtRisultato.setText(traduzione);
-    				
-    				txtParola.clear();
-    			}
+    			//SE SONO QUI I DATI INPUT SONO GIUSTI
+    			
+    			//se esiste vedo che la parola esiste nel dizionario ma non esiste la traduzione
+    			for(WordEnhanced ww: dizionario) {
+					if(ww.parolaAliena.equals(parolaAliena)) {
+						for(String s: ww.listaTraduzioni) {
+							if(s.equals(traduzione)) { 
+								//se la traduzione esiste gia
+								
+								
+		    	txtRisultato.setText(ww.listaTraduzioni.toString());
+				txtParola.clear();
+				return;
+				
+			} 
+				}
+						ww.listaTraduzioni.add(traduzione);
+						txtRisultato.setText(ww.listaTraduzioni.toString());
+						txtParola.clear();
+						
+						}
+					
+				}
+    			
+    			
+    				//se sono qui non esiste la parola --> creo la nuova parola e la aggiungo alla lista
+    				WordEnhanced word= new WordEnhanced(parolaAliena);
+    				word.listaTraduzioni.add(traduzione);
+    				dizionario.add(word);
+    				txtRisultato.setText(""+word.listaTraduzioni.toString());
+    		        txtParola.clear();	
+    			
     		
     	}
+    
     	if(array.length==1) {
     		parolaAliena=array[0];
+    		
     		if( parolaAliena.matches(".*[a-z].*")==false) {
     			txtRisultato.setText("ERRORE: inserire parola nel formato corretto");
     			txtParola.clear();
     			return;
     	}
-    		if(!dizionario.containsKey(parolaAliena)) {
+    		
+    		//se la parola esiste ritorno la traduzione
+    		for(WordEnhanced ww: dizionario) {
+				if(ww.parolaAliena.equals(parolaAliena)) {
+					
+					
+			txtRisultato.setText(ww.listaTraduzioni.toString());
+			txtParola.clear();
+			return;
+    		
+				}
+				}
+    		
+    		//se non esiste ritorno errore
     			txtRisultato.setText("ERRORE:la parola aliena "+parolaAliena+" non è contenuta nel dizionario");
     			txtParola.clear();
     			return;
     		}
-    		for(Dizionario d: dizionario.values()) {
-    			if(d.getParolaAliena().equals(parolaAliena)) {
-    				txtRisultato.setText(d.getTraduzione());
-    				txtParola.clear();
-    			}
-    		}
-    		
-    		}
     		
     	
-     }
+    	}
+     
+    
+   
     
       @FXML
     void handleClear(ActionEvent event) {
     	txtRisultato.clear();
 
     }
-
-    
-
-    @FXML // This method is called by the FXMLLoader when initialization is complete
+      
+      
+     
+	@FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
         assert txtParola != null : "fx:id=\"txtParola\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btmTranslate != null : "fx:id=\"btmTranslate\" was not injected: check your FXML file 'Scene.fxml'.";

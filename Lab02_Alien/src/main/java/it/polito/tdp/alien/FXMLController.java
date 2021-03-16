@@ -7,7 +7,7 @@ package it.polito.tdp.alien;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-import java.util.TreeMap;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -76,11 +76,12 @@ public class FXMLController {
 				return;
 				
 			} 
-				}
+						}
+				
 						ww.listaTraduzioni.add(traduzione);
 						txtRisultato.setText(ww.listaTraduzioni.toString());
 						txtParola.clear();
-						
+						return;
 						}
 					
 				}

@@ -61,6 +61,7 @@ public class FXMLController {
     			return;
     		} 
     		
+    		
     			//SE SONO QUI I DATI INPUT SONO GIUSTI
     			
     			//se esiste vedo che la parola esiste nel dizionario ma non esiste la traduzione

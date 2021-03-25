@@ -49,6 +49,8 @@ public class FXMLController {
     	String testoInserito= txtParola.getText().toLowerCase();
     	String array[]= testoInserito.split(" ");
     	
+    	
+    	
     if(array.length==2) {
     	//CONTROLLO SE ESISTE GIA IN MAPPA --> RESTITUISCO TRADUZIONE MA NON AGGIUNGO PAROLA ALIENA (c'è gia)
     	
@@ -65,22 +67,22 @@ public class FXMLController {
     			//SE SONO QUI I DATI INPUT SONO GIUSTI
     			
     			//se esiste vedo che la parola esiste nel dizionario ma non esiste la traduzione
-    			for(WordEnhanced ww: dizionario) {
-					if(ww.parolaAliena.equals(parolaAliena)) {
-						for(String s: ww.listaTraduzioni) {
+    			for(WordEnhanced word: dizionario) {
+					if(word.parolaAliena.equals(parolaAliena)) {
+						for(String s: word.listaTraduzioni) {
 							if(s.equals(traduzione)) { 
 								//se la traduzione esiste gia
 								
 								
-		    	txtRisultato.setText(ww.listaTraduzioni.toString());
+		    	txtRisultato.setText(word.toString());
 				txtParola.clear();
 				return;
 				
 			} 
 						}
 				
-						ww.listaTraduzioni.add(traduzione);
-						txtRisultato.setText(ww.listaTraduzioni.toString());
+						word.listaTraduzioni.add(traduzione);
+						txtRisultato.setText(word.toString());
 						txtParola.clear();
 						return;
 						}
@@ -92,7 +94,7 @@ public class FXMLController {
     				WordEnhanced word= new WordEnhanced(parolaAliena);
     				word.listaTraduzioni.add(traduzione);
     				dizionario.add(word);
-    				txtRisultato.setText(""+word.listaTraduzioni.toString());
+    				txtRisultato.setText(word.toString());
     		        txtParola.clear();	
     			
     		
@@ -108,11 +110,11 @@ public class FXMLController {
     	}
     		
     		//se la parola esiste ritorno la traduzione
-    		for(WordEnhanced ww: dizionario) {
-				if(ww.parolaAliena.equals(parolaAliena)) {
+    		for(WordEnhanced word: dizionario) {
+				if(word.parolaAliena.equals(parolaAliena)) {
 					
 					
-			txtRisultato.setText(ww.listaTraduzioni.toString());
+			txtRisultato.setText(word.toString());
 			txtParola.clear();
 			return;
     		
@@ -120,7 +122,7 @@ public class FXMLController {
 				}
     		
     		//se non esiste ritorno errore
-    			txtRisultato.setText("ERRORE:la parola aliena "+parolaAliena+" non è contenuta nel dizionario");
+    			txtRisultato.setText("ERRORE: la parola aliena "+parolaAliena+" non è contenuta nel dizionario");
     			txtParola.clear();
     			return;
     		}
@@ -137,6 +139,7 @@ public class FXMLController {
 
     }
       
+     
       
      
 	@FXML // This method is called by the FXMLLoader when initialization is complete

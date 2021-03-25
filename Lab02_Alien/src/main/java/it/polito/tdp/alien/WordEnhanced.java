@@ -8,6 +8,7 @@ public class WordEnhanced {
 	LinkedList<String>listaTraduzioni= new LinkedList<>();
 	
 	
+	
 	public WordEnhanced(String parolaAliena) {
 		super();
 		this.parolaAliena = parolaAliena;
@@ -19,7 +20,7 @@ public class WordEnhanced {
 		
 		String s="";
 		for(String ss: listaTraduzioni) {
-			s+=ss.toString()+"\n";
+			s+=ss+"\n";
 		}
 		return s;
 	}
